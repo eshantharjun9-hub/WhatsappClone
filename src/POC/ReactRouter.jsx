@@ -4,14 +4,14 @@ import Login from './Login'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 const ReactRouter = () => {
-    const [isLoggedIn, setisLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     return (
         <>
             <div>ReactRouter</div>
             <Routes>
-                <Route path="/" element={<Protected isLoggedIn={isLoggedIn}> <Home /> </Protected>} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Protected isLoggedIn={isLoggedIn}> <Home setIsLoggedIn={setIsLoggedIn} /> </Protected>} />
+                <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
             </Routes>
         </>
     )
@@ -21,7 +21,7 @@ function Protected(props) {
     const isLoggedIn = props.isLoggedIn;
     console.log(props);
     if (isLoggedIn) {
-        return <Home />
+        return props.children
     } else {
         return <Navigate to="/login" />
     }
